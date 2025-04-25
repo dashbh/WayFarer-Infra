@@ -44,14 +44,14 @@ make start                    # 4. Port-forward for local access
 
 ## 🛠️ Common Makefile Commands
 
-| Command           | Description                                         |
-|-------------------|-----------------------------------------------------|
-| `make deploy`     | Deploys all Helm charts (Kafka, PostgreSQL, etc.)   |
-| `make cleanup`    | Deletes Helm releases, PVCs, and secrets            |
-| `make redeploy`   | Performs `cleanup` then re-runs `deploy`            |
-| `make start`      | Starts port-forwarding for services (e.g., pgAdmin) |
-| `make kill-ports` | Stops all existing port-forward processes           |
-| `make restart`    | quick restart (useful for config/secret updates)    |
+| Command            | Description                                               |
+|--------------------|-----------------------------------------------------------|
+| `make deploy`      | Deploys all Helm charts (Kafka, PostgreSQL, etc.)         |
+| `make clear`       | Deletes Helm releases, PVCs, and secrets                  |
+| `make deploy-infra`| Deploys only infra Helm charts (Kafka, PostgreSQL, etc.)  |
+| `make start`       | Starts port-forwarding for services (e.g., pgAdmin)       |
+| `make kill-ports`  | Stops all existing port-forward processes                 |
+| `make restart`     | quick restart (useful for config/secret updates)          |
 
 ---
 

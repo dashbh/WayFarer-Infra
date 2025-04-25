@@ -10,6 +10,8 @@ releases:
     version: 32.2.0  # specify a stable version of the Kafka chart
     values:
       - values/kafka-values.yaml
+    labels:
+      group: messaging
 
   # PostgreSQL Release
   - name: wayfarer-postgres
@@ -18,6 +20,8 @@ releases:
     version: 12.2.0
     values:
       - values/postgres-values.yaml
+    labels:
+      group: db
 
   # pgAdmin Release
   - name: wayfarer-pgadmin
@@ -26,6 +30,8 @@ releases:
     version: 1.37.0
     values:
       - ./values/pgadmin-values.yaml
+    labels:
+      group: db
 
   # Wayfarer Microservices - API Gateway
   - name: wayfarer-api-gateway
@@ -33,6 +39,8 @@ releases:
     chart: ./charts/nestjs-service
     values:
       - ./values/api-gateway-values.yaml
+    labels:
+      group: core
 
   # Wayfarer Microservices - Wayfarer Auth
   - name: wayfarer-auth
@@ -40,6 +48,8 @@ releases:
     chart: ./charts/nestjs-service
     values:
       - ./values/wayfarer-auth-values.yaml
+    labels:
+      group: core
 
   # Wayfarer Microservices - Wayfarer Catalog
   - name: wayfarer-catalog
@@ -47,6 +57,8 @@ releases:
     chart: ./charts/nestjs-service
     values:
       - ./values/wayfarer-catalog-values.yaml
+    labels:
+      group: core
 
   # Wayfarer Microservices - Wayfarer Cart
   - name: wayfarer-cart
@@ -54,3 +66,5 @@ releases:
     chart: ./charts/nestjs-service
     values:
       - ./values/wayfarer-cart-values.yaml
+    labels:
+      group: core

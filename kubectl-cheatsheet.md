@@ -121,12 +121,4 @@ kubectl config set-context --current --namespace=<namespace>
 ### ✅ Tip:
 You can add `-o wide` to most `kubectl get` commands to get more info, like IPs and nodes.
 
----
-
-## 📚 Resources
-
-- [📘 Kubernetes CLI Cheatsheet](./kubectl-cheatsheet.md)
-
----
-
 Feel free to copy and paste this into a `README.md` or your personal DevOps playbook!
