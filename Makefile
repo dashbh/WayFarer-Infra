@@ -122,5 +122,5 @@ clear:
 # Kill background port forwarding process
 kill-ports:
 	@echo "Killing background port-forward processes..."
-	@pkill -f "kubectl port-forward"
+	@pkill -f "kubectl port-forward" || true
 	@echo "$(GREEN)All port-forward processes killed!$(NC)"

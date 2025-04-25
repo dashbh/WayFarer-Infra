@@ -35,7 +35,7 @@ Update the following environment variables in `.env`:
 
 ```bash
 cp .env.template .env         # 1. Setup your .env
-make cleanup                  # 2. Cleanup if needed
+make clear                    # 2. Cleanup if needed
 make deploy                   # 3. Deploy all services
 make start                    # 4. Port-forward for local access
 ```
