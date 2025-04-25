@@ -1,4 +1,4 @@
-.PHONY: deploy cleanup kill-port-forward create-secrets start
+.PHONY: deploy cleanup kill-port-forward create-secrets start restart
 
 # Define namespaces, Helmfile path, and ports to forward
 WAYFARER_NAMESPACE=wayfarer
@@ -54,6 +54,11 @@ create-secrets:
 	@echo "$(GREEN)Secret wayfarer-secrets created!$(NC)"
 	@echo "$(GREEN)Secret wayfarer-postgres-secret created!$(NC)"
 	@echo "$(GREEN)Secret wayfarer-pgadmin-secret created!$(NC)"
+
+restart:
+	@echo "$(YELLOW)Restarting all deployments in $(WAYFARER_NAMESPACE)...$(NC)"
+	@kubectl get deployments -n $(WAYFARER_NAMESPACE) -o name | xargs -I{} kubectl rollout restart {} -n $(WAYFARER_NAMESPACE)
+	@echo "$(GREEN)All deployments restarted successfully in $(WAYFARER_NAMESPACE)!$(NC)"
 
 # Deploy Kafka, PostgreSQL, and pgAdmin using Helmfile
 deploy:

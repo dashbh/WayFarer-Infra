@@ -51,6 +51,7 @@ make start                    # 4. Port-forward for local access
 | `make redeploy`   | Performs `cleanup` then re-runs `deploy`            |
 | `make start`      | Starts port-forwarding for services (e.g., pgAdmin) |
 | `make kill-ports` | Stops all existing port-forward processes           |
+| `make restart`    | quick restart (useful for config/secret updates)    |
 
 ---
 
