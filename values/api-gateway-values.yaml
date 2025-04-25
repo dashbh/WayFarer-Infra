@@ -1,0 +1,10 @@
+image:
+  repository: dashbh/api-gateway
+  tag: latest
+  imagePullPolicy: Always
+
+service:
+  type: NodePort  # Can be set to LoadBalancer if needed
+  port: 3000
+  targetPort: 50050
+  nodePort: 30000

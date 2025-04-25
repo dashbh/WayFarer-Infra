@@ -1,0 +1,56 @@
+repositories:
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
+
+releases:
+  # Kafka Release
+  - name: wayfarer-kafka
+    namespace: wayfarer
+    chart: bitnami/kafka
+    version: 32.2.0  # specify a stable version of the Kafka chart
+    values:
+      - values/kafka-values.yaml
+
+  # PostgreSQL Release
+  - name: wayfarer-postgres
+    namespace: wayfarer
+    chart: bitnami/postgresql
+    version: 12.2.0
+    values:
+      - values/postgres-values.yaml
+
+  # pgAdmin Release
+  - name: wayfarer-pgadmin
+    namespace: wayfarer
+    chart: runix/pgadmin4
+    version: 1.37.0
+    values:
+      - ./values/pgadmin-values.yaml
+
+  # Wayfarer Microservices - API Gateway
+  - name: wayfarer-api-gateway
+    namespace: wayfarer
+    chart: ./charts/nestjs-service
+    values:
+      - ./values/api-gateway-values.yaml
+
+  # Wayfarer Microservices - Wayfarer Auth
+  - name: wayfarer-auth
+    namespace: wayfarer
+    chart: ./charts/nestjs-service
+    values:
+      - ./values/wayfarer-auth-values.yaml
+
+  # Wayfarer Microservices - Wayfarer Catalog
+  - name: wayfarer-catalog
+    namespace: wayfarer
+    chart: ./charts/nestjs-service
+    values:
+      - ./values/wayfarer-catalog-values.yaml
+
+  # Wayfarer Microservices - Wayfarer Cart
+  - name: wayfarer-cart
+    namespace: wayfarer
+    chart: ./charts/nestjs-service
+    values:
+      - ./values/wayfarer-cart-values.yaml

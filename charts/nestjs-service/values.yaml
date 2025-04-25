@@ -1,0 +1,24 @@
+replicaCount: 1
+
+image:
+  repository: dashbh/api-gateway
+  tag: latest
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 3000
+
+containerPort: 3000
+
+resources: {}
+
+env: []
+# Example:
+# env:
+#   - name: NODE_ENV
+#     value: production
+
+grpc:
+  enabled: false
+  port: 5000

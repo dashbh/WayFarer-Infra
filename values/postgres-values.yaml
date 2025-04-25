@@ -1,0 +1,15 @@
+namespace: wayfarer
+auth:
+  existingSecret: wayfarer-postgres-secret
+  username: wayfarer_pg_user
+  database: wayfarer_db
+
+## Configuration for PostgreSQL persistence
+persistence:
+  enabled: false # Set to true if you want persistent volume for PostgreSQL
+  size: 1Gi # Size of the persistent volume (if enabled)
+
+## PostgreSQL service configuration
+service:
+  type: ClusterIP # Type of service, change to LoadBalancer if external access is needed
+  port: 5432 # Port for PostgreSQL access

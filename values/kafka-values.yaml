@@ -1,0 +1,21 @@
+namespace: wayfarer
+
+replicaCount: 1
+
+zookeeper:
+  replicaCount: 1
+
+listeners:
+  client:
+    protocol: PLAINTEXT
+
+service:
+  type: NodePort
+  nodePorts:
+    client: 31090
+
+persistence:
+  enabled: false
+
+zookeeper:
+  enabled: false
