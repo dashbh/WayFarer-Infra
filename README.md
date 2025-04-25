@@ -1,63 +1,115 @@
-# Wayfarer Microservices Local Kubernetes Deployment
 
-This guide explains how to deploy and manage the Wayfarer backend stack (Kafka, PostgreSQL, pgAdmin) locally using Kubernetes, Helmfile, and a `Makefile`.
+# 🚀 Wayfarer Microservices – Local Kubernetes Deployment Guide
+
+This guide helps you set up the **Wayfarer** backend (Kafka, PostgreSQL, pgAdmin, and microservices) locally using **Kubernetes**, **Helmfile**, and a `Makefile`.
 
 ---
 
-## 🚀 Deployment
+## ⚙️ Prerequisites
 
-To clean up any previous resources and deploy everything fresh:
+Ensure you have the following installed:
 
-```bash
-make redeploy
-```
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) (with Kubernetes enabled)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/)
+- [Helm](https://helm.sh/)
 
-This will:
+---
 
-- Destroy previous Helm releases and PVCs  
-- Deploy Kafka, PostgreSQL, and pgAdmin via Helmfile  
-- Wait for all pods to be ready  
+## 📦 Environment Setup
 
-If everything is already deployed and you just want to start port forwarding:
+1. **Copy the `.env.template`** to `.env` and update the values:
 
 ```bash
-make start
+cp .env.template .env
 ```
 
-If `make start` gives any error for port forwarding then kill the existing port forwards before running `make start`
+Update the following environment variables in `.env`:
+
+- `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`
+- `POSTGRES_ADMIN_USER`, `POSTGRES_ADMIN_PASSWORD`
+- Any other required values...
+
+---
+
+## ✅ Quickstart Summary
 
 ```bash
-make kill-ports
+cp .env.template .env         # 1. Setup your .env
+make cleanup                  # 2. Cleanup if needed
+make deploy                   # 3. Deploy all services
+make start                    # 4. Port-forward for local access
 ```
+
+---
+
+## 🛠️ Common Makefile Commands
+
+| Command           | Description                                         |
+|-------------------|-----------------------------------------------------|
+| `make deploy`     | Deploys all Helm charts (Kafka, PostgreSQL, etc.)   |
+| `make cleanup`    | Deletes Helm releases, PVCs, and secrets            |
+| `make redeploy`   | Performs `cleanup` then re-runs `deploy`            |
+| `make start`      | Starts port-forwarding for services (e.g., pgAdmin) |
+| `make kill-ports` | Stops all existing port-forward processes           |
 
 ---
 
 ## 🧩 pgAdmin Setup
 
-1. Open [http://localhost:8080](http://localhost:8080) in your browser.
+1. Open [http://localhost:8080](http://localhost:8080)
 
-2. **Login credentials:**
-   - **Email:** `<pgadmin username>`
-   - **Password:** `<pgadmin password>`
+2. **Login:**
+   - Email: _From `POSTGRES_ADMIN_USER`_
+   - Password: _From `POSTGRES_ADMIN_PASSWORD`_
 
-3. After login, click **"Add New Server"** and fill in:
-
-   **General:**
-   - **Name:** `Wayfarer Postgres`
-
-   **Connection:**
-   - **Host name/address:** `wayfarer-postgres-postgresql`
-   - **Port:** `5432`
-   - **Username:** `<postgress username>`
-   - **Password:** `<postgress password>`
+3. **Add New Server:**
+   - **General → Name:** `Wayfarer Postgres`
+   - **Connection:**
+     - Host: `wayfarer-postgres-postgresql`
+     - Port: `5432`
+     - Username: _From `POSTGRES_USER`_
+     - Password: _From `POSTGRES_PASSWORD`_
 
 ---
 
-## 🔎 Troubleshooting
+## 🔍 Debugging & Troubleshooting
 
-### **If the deployment gets stuck:**
-  - Check All pods : `kubectl get pods -n wayfarer`
-  - Check Specific PODS: `kubectl describe pod <wayfarer-api-gateway-pod-name> -n wayfarer`
+### Check all running pods:
+
+```bash
+kubectl get pods -n wayfarer
+```
+
+### Inspect a specific pod:
+
+```bash
+kubectl describe pod <pod-name> -n wayfarer
+```
+
+### View logs from a pod:
+
+```bash
+kubectl logs <pod-name> -n wayfarer
+```
+
+### Restart a pod (delete, it auto-recreates):
+
+```bash
+kubectl delete pod <pod-name> -n wayfarer
+```
+
+### Delete all secrets (with label):
+
+```bash
+kubectl delete secret -l owner=wayfarer -n wayfarer
+```
+
 ---
 
-Happy developing! 🚀
+## 📚 Resources
+
+- [📘 Kubernetes CLI Cheatsheet](./kubectl-cheatsheet.md)
+
+---
+
+Happy Hacking! 🚀
