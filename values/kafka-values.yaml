@@ -31,6 +31,8 @@ extraEnvVars:
     value: "1@kafka:9093"
   - name: ALLOW_PLAINTEXT_LISTENER
     value: "yes"
+  - name: KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE
+    value: "true"
 
 service:
   type: ClusterIP
