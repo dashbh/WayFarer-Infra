@@ -95,11 +95,14 @@ deploy: clear deploy-db deploy-messaging deploy-core
 # Start step to handle port forwarding in parallel and keep terminal live
 start: kill-ports
 	@echo "$(YELLOW)Starting all port forwarding in parallel...$(NC)"
-	# Port forwarding for Kafka
+
+	@echo "$(GREEN) Port forwarding for Kafka...$(NC)"
 	@kubectl port-forward svc/wayfarer-kafka $(KAFKA_LOCAL_PORT):$(KAFKA_PORT) -n $(WAYFARER_NAMESPACE) &
-	# Port forwarding for PostgreSQL
+
+	@echo "$(GREEN) Port forwarding for PostgreSQL...$(NC)"
 	@kubectl port-forward svc/wayfarer-postgres-postgresql $(POSTGRES_LOCAL_PORT):$(POSTGRES_PORT) -n $(WAYFARER_NAMESPACE) &
-	# Port forwarding for pgAdmin
+
+	@echo "$(GREEN) Port forwarding for pgAdmin...$(NC)"
 	@kubectl port-forward svc/wayfarer-pgadmin-pgadmin4 8080:80 -n $(WAYFARER_NAMESPACE) &
 	@wait
 

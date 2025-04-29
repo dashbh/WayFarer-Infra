@@ -1,21 +1,47 @@
-namespace: wayfarer
-
 replicaCount: 1
 
-zookeeper:
-  replicaCount: 1
+auth:
+  enabled: false
 
-listeners:
-  client:
-    protocol: PLAINTEXT
-
-service:
-  type: NodePort
-  nodePorts:
-    client: 31090
+kraft:
+  enabled: true
 
 persistence:
   enabled: false
 
 zookeeper:
   enabled: false
+
+extraEnvVars:
+  - name: KAFKA_CFG_NODE_ID
+    value: "1"
+  - name: KAFKA_KRAFT_CLUSTER_ID
+    value: "MkXrZ2twS8WnVoC0F5edYA"
+  - name: KAFKA_CFG_PROCESS_ROLES
+    value: "broker,controller"
+  - name: KAFKA_CFG_CONTROLLER_LISTENER_NAMES
+    value: "CONTROLLER"
+  - name: KAFKA_CFG_LISTENERS
+    value: "PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093"
+  - name: KAFKA_CFG_ADVERTISED_LISTENERS
+    value: "PLAINTEXT://localhost:9092"
+  - name: KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP
+    value: "PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT"
+  - name: KAFKA_CFG_CONTROLLER_QUORUM_VOTERS
+    value: "1@kafka:9093"
+  - name: ALLOW_PLAINTEXT_LISTENER
+    value: "yes"
+
+service:
+  type: ClusterIP
+  ports:
+    client: 9092
+    controller: 9093
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
