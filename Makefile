@@ -96,8 +96,8 @@ deploy: clear deploy-db deploy-messaging deploy-core
 start: kill-ports
 	@echo "$(YELLOW)Starting all port forwarding in parallel...$(NC)"
 
-	@echo "$(GREEN) Port forwarding for Kafka...$(NC)"
-	@kubectl port-forward svc/wayfarer-kafka $(KAFKA_LOCAL_PORT):$(KAFKA_PORT) -n $(WAYFARER_NAMESPACE) &
+	# @echo "$(GREEN) Port forwarding for Kafka...$(NC)"
+	# @kubectl port-forward svc/wayfarer-kafka $(KAFKA_LOCAL_PORT):$(KAFKA_PORT) -n $(WAYFARER_NAMESPACE) &
 
 	@echo "$(GREEN) Port forwarding for PostgreSQL...$(NC)"
 	@kubectl port-forward svc/wayfarer-postgres-postgresql $(POSTGRES_LOCAL_PORT):$(POSTGRES_PORT) -n $(WAYFARER_NAMESPACE) &

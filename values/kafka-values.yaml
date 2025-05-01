@@ -12,8 +12,20 @@ persistence:
 zookeeper:
   enabled: false
 
+listeners:
+  client:
+    protocol: PLAINTEXT
+  controller:
+    protocol: PLAINTEXT
+  broker:
+    protocol: PLAINTEXT
+
 extraEnvVars:
   - name: KAFKA_CFG_NODE_ID
+    value: "1"
+  - name: KAFKA_ENABLE_KRAFT
+    value: "yes"
+  - name: KAFKA_BROKER_ID
     value: "1"
   - name: KAFKA_KRAFT_CLUSTER_ID
     value: "MkXrZ2twS8WnVoC0F5edYA"
@@ -22,23 +34,28 @@ extraEnvVars:
   - name: KAFKA_CFG_CONTROLLER_LISTENER_NAMES
     value: "CONTROLLER"
   - name: KAFKA_CFG_LISTENERS
-    value: "PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093"
+    value: "PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094"
   - name: KAFKA_CFG_ADVERTISED_LISTENERS
-    value: "PLAINTEXT://localhost:9092"
+    value: "PLAINTEXT://127.0.0.1:9092,EXTERNAL://127.0.0.1:9092"
   - name: KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP
     value: "PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT"
   - name: KAFKA_CFG_CONTROLLER_QUORUM_VOTERS
-    value: "1@kafka:9093"
+    value: "1@127.0.0.1:9093"
   - name: ALLOW_PLAINTEXT_LISTENER
     value: "yes"
   - name: KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE
     value: "true"
+  - name: KAFKA_CFG_NUM_PARTITIONS
+    value: "2"
+  - name: BITNAMI_DEBUG
+    value: "yes"
 
 service:
-  type: ClusterIP
+  type: NodePort
   ports:
     client: 9092
     controller: 9093
+    external: 9094
 
 resources:
   limits:
